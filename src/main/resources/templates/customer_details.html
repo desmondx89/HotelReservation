@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="css/JFGrid.css" />
+	<link type="text/css" rel="stylesheet" href="css/JFFormStyle-1.css" />
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700" rel="stylesheet" type="text/css">
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/jquery-ui.css" />
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script>
+		$(function () {
+			$("#datepicker,#datepicker1").datepicker();
+		});
+	</script>
+	<script type="text/javascript" src="js/JFCore.js"></script>
+	<script type="text/javascript" src="js/JFForms.js"></script>
+	<title th:if="${Booking.bookingId==null} or ${Booking.bookingId==0}">Create
+		New Booking</title>
+	<title th:unless="${Booking.bookingId==null} or ${Booking.bookingId==0}">Edit
+		Existing Booking</title>
+
+</head>
+
+<body>
+
+
+	<div>
+		<h1 th:unless="${Booking.bookingId==null} or ${Booking.bookingId==0}">Edit
+			Existing Booking</h1>
+		<h1 th:if="${Booking.bookingId==null} or ${Booking.bookingId==0}">Create
+			New Booking Record</h1>
+	</div>
+	<br>
+
+	<form th:action="@{/bookings/add}" th:object="${Booking}" method="POST">
+		<div>
+			<label class="form-label"> Booking ID : </label>
+			<div th:unless="${Booking.bookingId==null} or ${Booking.bookingId==0}">
+				<input type="text" th:field="*{bookingId}" onfocus="blur();" class="col-sm-3 form-control" readonly />
+			</div>
+		</div>
+		<div>
+			<label class="form-label"> Name : </label>
+			<div>
+				<input type="text" th:field="*{user.name}" class="col-sm-3 form-control" />
+			</div>
+		</div>
+		<div>
+			<label class="form-label"> Email : </label>
+			<div>
+				<input type="text"  th:field="*{user.email}" class="col-sm-3 form-control" />
+			</div>
+		</div>
+		<div class="book_date">
+			<label class="form-label"> Start Date : </label>
+			<div>
+				<input type="text" id="datepicker" th:field="*{checkIn}" class="col-sm-3 form-control date" />
+			</div>
+		</div>
+		<div class="book_date">
+			<label class="form-label"> End Date : </label>
+			<div>
+				<input type="text" id="datepicker1" th:field="*{checkOut}" class="col-sm-3 form-control date" />
+			</div>
+		</div>
+		<div>
+			<label class="form-label"> Room Type : </label>
+			<div>
+				<select th:field="*{Room}" class="col-sm-3 form-control" required>
+					<th:block th:each="room : ${listRoomType}">
+						<option th:text="${room.roomNameType}" th:value="${room.roomTypeId}" />
+					</th:block>
+				</select>
+			</div>
+		</div>
+		<br>
+		<div>
+			<div th:if="${Booking.bookingId==null} or ${Booking.bookingId==0}">
+				<button type="submit" name="add" value="add" class="btn btn-info">Add</button>
+			</div>
+
+			<div th:unless="${Booking.bookingId==null} or ${Booking.bookingId==0}">
+				<button type="submit" name="edit" value="edit" class="btn btn-info">Edit</button>
+			</div>
+		</div>
+	</form>
+	<br>
+	<a th:href="@{/bookings}" class="btn btn-info">Back</a>
+</body>
+
+</html>

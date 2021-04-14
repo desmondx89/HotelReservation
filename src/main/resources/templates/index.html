@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>The Paradise-Hotel Template</title>
+	<meta meta charset="ISO-8859-1">
+	<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700" rel="stylesheet" type="text/css">
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<script src="js/jquery.min.js"></script>
+
+	<!---start-date-picker---->
+	<link rel="stylesheet" href="css/jquery-ui.css" type="text/css" />
+	<script src="js/jquery-ui.js"></script>
+	<script>
+		$(function () {
+			$("#datepicker,#datepicker1").datepicker();
+		});
+	</script>
+	<!---/End-date-picker---->
+
+	<link type="text/css" rel="stylesheet" href="css/JFFormStyle-1.css" />
+	<script src="js/JFCore.js"></script>
+	<script src="js/JFForms.js"></script>
+	<!-- Set here the key for your domain in order to hide the watermark on the web server -->
+	<script type="text/javascript">
+		(function () {
+			JC.init({
+				domainKey: ''
+			});
+		})();
+	</script>
+
+</head>
+
+<body>
+	<div class="header_bg">
+		<div class="wrap">
+			<div class="header">
+				<div class="logo">
+					<a href="index.html"><img src="images/logo.png" alt=""></a>
+				</div>
+				<div class="h_right">
+					<!--start menu -->
+					<ul class="menu">
+						<li class="active"><a href="index.html">hotel</a></li> |
+						<li><a href="rooms.html">rooms & suits</a></li> |
+						<li><a href="reservation.html">reservation</a></li> |
+						<li><a href="activities.html">activities</a></li> |
+						<li><a href="contact.html">contact</a></li>
+						<div class="clear"></div>
+					</ul>
+					
+				</div>
+				<div class="clear"></div>
+				<div class="top-nav">
+					<nav class="clearfix">
+						<ul>
+							<li class="active"><a href="index.html">hotel</a></li>
+							<li><a href="rooms.html">rooms & suits</a></li>
+							<li><a href="reservation.html">reservation</a></li>
+							<li><a href="activities.html">activities</a></li>
+							<li><a href="contact.html">contact</a></li>
+						</ul>
+						<a href="#" id="pull">Menu</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="main_bg">
+		<div class="wrap">
+			<div class="online_reservation">
+				<div class="b_room">
+					<div class="booking_room">
+						<h4>Book a room online</h4>
+						<p>Please enter your selections and required dates below:-</p>
+					</div>
+					<form th:action="@{/bookings/customer}" th:object="${Booking}" method="POST">
+						<div class="reservation">
+							<ul>
+
+								<li class="">
+									<h5>Type of room:</h5>
+
+									<div class="section_room">
+										<select th:field="*{room.roomType.roomNameType}" name="RoomType"
+											class="col-sm-3 form-control" required>
+											<th:block th:each="room : ${listRoomType}">
+												<option th:text="${room.roomNameType}" th:value="${room.roomTypeId}" />
+											</th:block>
+										</select>
+									</div>
+								</li>
+								<li class="">
+									<h5>Check-in-date:</h5>
+									<div class="book_date">
+
+										<input class="text" th:field="*{checkIn}" id="datepicker" type="text"
+											value="YYYY-MM-DD" onfocus="this.value = '';"
+											onblur="if (this.value == '') {this.value = 'YYYY-MM-DD';}" />
+
+
+									</div>
+								</li>
+								<li class="">
+									<h5>Check-out-date:</h5>
+									<div class="book_date">
+
+										<input class="text" th:field="*{checkOut}" id="datepicker1" type="text"
+											value="YYYY-MM-DD" onfocus="this.value = '';"
+											onblur="if (this.value == '') {this.value = 'YYYY-MM-DD';}" />
+									</div>
+								</li>
+
+								<li class="">
+									<div class="date_btn">
+
+										<input type="submit" value="book now" class="btn btn-info"/>
+
+									</div>
+								</li>
+
+
+							</ul>
+						</div>
+					</form>
+					<div class="clear"></div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+</body>
+
+</html>
