@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="css/JFGrid.css" />
+	<link type="text/css" rel="stylesheet" href="css/JFFormStyle-1.css" />
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700" rel="stylesheet" type="text/css">
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/jquery-ui.css" text="text/css" />
+	<script src="js/jquery.min.js" type="text/javascript"></script>
+	<script src="js/jquery-ui.js" type="text/javascript"></script>
+	
+	
+	<script type="text/javascript" src="js/JFCore.js"></script>
+	<script type="text/javascript" src="js/JFForms.js"></script>
+	<title >Summary</title>
+	
+
+</head>
+
+<body>
+
+	<table class="ui very basic table">
+		<h3>Check In/ Check Out</h3>
+		<tbody>
+			<tr>
+				<td>Check in date</td>
+				<td th:text="${session.checkIn}"></td>
+			</tr>
+			<tr>
+				<td>Check out date</td>
+				<td th:text="${session.checkOut}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="ui divider"></div>
+	<h3>Room</h3>
+	<table class="ui very basic table">
+		<tbody>
+			<tr>
+				<td>Room Type</td>
+				<td th:each="room: ${session.listRoom}" th:text="${room.roomType.roomNameType}"></td>
+			</tr>
+			<tr>
+				<td>Room Number</td>
+				<td th:each="room: ${session.listRoom}" th:text="${room.roomNumber}"></td>
+				
+			</tr>
+			<tr>
+				<td>Room Price per Night</td>
+				<td th:each="room: ${session.listRoom}" th:text="${room.roomType.roomPrice}"></td>
+				
+			</tr>
+			<tr>
+				<td>Total Cost</td>
+				<td th:each="room: ${session.listRoom}" th:text="${Booking.TotalDays(session.checkIn,session.checkOut)*room.roomType.roomPrice}"></td>
+			</tr>
+			<tr>
+				<td># Nights</td>
+				<td th:text="${Booking.TotalDays(session.checkIn,session.checkOut)}"></td>
+			</tr>
+			<tr>
+                <td>Guest Id</td>
+                <td th:text="${session.cid}"></td>
+			</tr>
+			<tr>
+                <td>Guest Name</td>
+                <td th:text="${session.cname}"></td>
+			</tr>
+			<tr>
+                <td>Guest Email</td>
+                <td th:text="${session.cemail}"></td>
+            </tr>
+		</tbody>
+	</table>
+
+	
+
+	
+	<br>
+	<a th:href="@{/}" class="btn btn-info">Back to Home</a>
+</body>
+
+</html>
